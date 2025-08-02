@@ -25,6 +25,7 @@ RULES = load_config().get("rules", {})
 def get_changed_files():
     base = os.environ["GITHUB_BASE_REF"]
     head = os.environ["GITHUB_HEAD_REF"]
+    subprocess.check_call(["git", "fetch", "origin", base, head])
     cmd = ["git", "diff", "--numstat", f"origin/{base}...origin/{head}"]
     output = subprocess.check_output(cmd).decode().splitlines()
     return output
