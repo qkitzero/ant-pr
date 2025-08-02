@@ -1,0 +1,5 @@
+rules:
+  "frontend/": 100
+  "api/": 150
+  "docs/": 200
+  "": 50
