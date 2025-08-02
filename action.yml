@@ -1,0 +1,9 @@
+name: "ant-pr"
+description: "A GitHub Action that celebrates small, atomic pull requests."
+inputs:
+  config-path:
+    required: false
+    default: ".ant-pr.yml"
+runs:
+  using: "docker"
+  image: "Dockerfile"
