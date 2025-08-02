@@ -1,5 +1,8 @@
 name: "ant-pr"
 description: "A GitHub Action that celebrates small, atomic pull requests."
+branding:
+  icon: "git-pull-request"
+  color: "purple"
 inputs:
   config-path:
     required: false
