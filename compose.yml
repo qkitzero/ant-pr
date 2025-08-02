@@ -1,0 +1,9 @@
+services:
+  ant-pr:
+    build: .
+    volumes:
+      - ./.git:/app/.git
+      - ./.ant-pr.yml:/app/.ant-pr.yml
+    environment:
+      BASE_SHA: ${BASE_SHA}
+      HEAD_SHA: ${HEAD_SHA}
