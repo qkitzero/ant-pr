@@ -2,7 +2,6 @@ services:
   ant-pr:
     build: .
     volumes:
-      - ./src:/app
       - ./.git:/app/.git
       - ./.ant-pr.yml:/app/.ant-pr.yml
     environment:
