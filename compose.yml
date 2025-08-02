@@ -5,5 +5,5 @@ services:
       - ./.git:/app/.git
       - ./.ant-pr.yml:/app/.ant-pr.yml
     environment:
-      BASE_SHA: develop
+      BASE_SHA: ${BASE_SHA}
       HEAD_SHA: ${HEAD_SHA}
