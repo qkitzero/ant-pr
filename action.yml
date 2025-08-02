@@ -4,6 +4,13 @@ inputs:
   config-path:
     required: false
     default: ".ant-pr.yml"
+  base-sha:
+    required: true
+  head-sha:
+    required: true
 runs:
   using: "docker"
   image: "Dockerfile"
+  env:
+    BASE_SHA: ${{ inputs.base-sha }}
+    HEAD_SHA: ${{ inputs.head-sha }}
