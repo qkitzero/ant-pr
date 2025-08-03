@@ -92,7 +92,7 @@ def post_or_update_comment(comment):
 
 def main():
     total_violations = 0
-    output_lines = []
+    output_lines = ["# 🐜 Ant PR\n\n"]
 
     changed = get_changed_files()
     for line in changed:
@@ -113,8 +113,6 @@ def main():
             )
 
     output_lines.append(COMMENT_MARKER)
-    title = "# 🐜 Ant PR\n\n"
-    output_lines.append(title)
     comment = "\n".join(output_lines)
     post_or_update_comment(comment)
 
