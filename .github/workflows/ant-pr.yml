@@ -1,8 +1,11 @@
-name: "ant-pr"
+name: Ant PR
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
 
 jobs:
   ant-pr:
@@ -20,3 +23,7 @@ jobs:
         with:
           base-sha: ${{ github.event.pull_request.base.sha }}
           head-sha: ${{ github.event.pull_request.head.sha }}
+          config-path: ".github/workflows/.ant-pr.yml"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          pull-request-number: ${{ github.event.pull_request.number }}
