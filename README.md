@@ -32,6 +32,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
+permissions:
+  pull-requests: write
+
 jobs:
   ant-pr:
     runs-on: ubuntu-latest
@@ -48,7 +51,11 @@ jobs:
         with:
           base-sha: ${{ github.event.pull_request.base.sha }}
           head-sha: ${{ github.event.pull_request.head.sha }}
-          config-path: ".github/workflows/.ant-pr.yml" # Optional
+          config-path: ".github/workflows/.ant-pr.yml"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          pull-request-number: ${{ github.event.pull_request.number }}
+
 ```
 
 ### 2. Configure Line Limits (Optional)
