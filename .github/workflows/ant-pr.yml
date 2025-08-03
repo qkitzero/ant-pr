@@ -2,7 +2,7 @@ name: Ant PR
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, labeled, unlabeled]
+    types: [opened, synchronize, reopened]
 
 jobs:
   ant-pr:
@@ -20,3 +20,4 @@ jobs:
         with:
           base-sha: ${{ github.event.pull_request.base.sha }}
           head-sha: ${{ github.event.pull_request.head.sha }}
+          config-path: ".github/workflows/.ant-pr.yml"
