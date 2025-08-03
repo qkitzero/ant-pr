@@ -25,7 +25,7 @@ Integrate Ant PR into your workflow in seconds.
 
 Create a workflow file (e.g., `.github/workflows/ant-pr.yml`) with the following content. This workflow ensures that the action has the necessary information to compare file changes.
 
-```yaml
+```yaml:ant-pr.yml
 name: Ant PR
 
 on:
@@ -55,7 +55,7 @@ jobs:
 
 Create a `.ant-pr.yml` file to define line change limits for different parts of your codebase.
 
-```yaml
+```yaml:.ant-pr.yml
 rules:
   "frontend/": 100
   "api/": 150
