@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 
+import requests
 import yaml
 
 CONFIG_PATH = os.environ.get("INPUT_CONFIG-PATH", ".ant-pr.yml")
@@ -42,6 +43,23 @@ def match_rule(path):
     return RULES[""]
 
 
+def post_comment(comment):
+    token = os.environ["GITHUB_TOKEN"]
+    repo = os.environ["GITHUB_REPOSITORY"]
+    pr_number = os.environ["PULL_REQUEST_NUMBER"]
+
+    url = f"https://api.github.com/repos/{repo}/issues/{pr_number}/comments"
+    headers = {
+        "Authorization": f"token {token}",
+        "Content-Type": "application/json",
+    }
+    data = {"body": comment}
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code != 201:
+        print(f"::error ::Failed to post comment: {response.text}")
+        sys.exit(1)
+
+
 def main():
     total_violations = 0
     output_lines = []
@@ -64,7 +82,8 @@ def main():
                 f"✅ `{file_path}` changed {total} lines (within {limit})"
             )
 
-    print("\n".join(output_lines))
+    comment = "\n".join(output_lines)
+    post_comment(comment)
 
     if total_violations > 0:
         print("::error ::PR has files exceeding allowed change limits.")
