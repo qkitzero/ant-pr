@@ -62,7 +62,7 @@ def post_comment(comment):
 
 def main():
     total_violations = 0
-    output_lines = []
+    output_lines = ["# 🐜Ant-PR Report\n\n"]
 
     changed = get_changed_files()
     for line in changed:
