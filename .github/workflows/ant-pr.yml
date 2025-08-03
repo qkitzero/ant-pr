@@ -22,3 +22,5 @@ jobs:
           head-sha: ${{ github.event.pull_request.head.sha }}
           config-path: ".github/workflows/.ant-pr.yml"
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          pull-request-number: ${{ github.event.pull_request.number }}
