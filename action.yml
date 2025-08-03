@@ -11,9 +11,14 @@ inputs:
     required: true
   head-sha:
     required: true
+  repo-token:
+    required: true
 runs:
   using: "docker"
   image: "Dockerfile"
   env:
     BASE_SHA: ${{ inputs.base-sha }}
     HEAD_SHA: ${{ inputs.head-sha }}
+    GITHUB_TOKEN: ${{ inputs.repo-token }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
