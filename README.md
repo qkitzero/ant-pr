@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-python@v5
 
       - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.1.0
+        uses: qkitzero/ant-pr@v1.1.1
         with:
           base-sha: ${{ github.event.pull_request.base.sha }}
           head-sha: ${{ github.event.pull_request.head.sha }}
