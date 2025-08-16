@@ -1,5 +1,7 @@
-rules:
-  "frontend/": 100
-  "api/": 150
-  "docs/": 200
-  "": 100
+limits:
+  files: 15
+  lines:
+    "frontend/": 100
+    "api/": 150
+    "docs/": 200
+    "": 100
