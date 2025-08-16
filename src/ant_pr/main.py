@@ -44,7 +44,9 @@ def main():
                     f"✅ `{file_path}` changed {total} lines (within {limit})"
                 )
         else:
-            output_lines.append(f"- `{file_path}` changed {total} lines (no limit set)")
+            output_lines.append(
+                f"➖ `{file_path}` changed {total} lines (no limit set)"
+            )
 
     output_lines.append(f"\n{COMMENT_MARKER}")
     comment = "\n".join(output_lines)
