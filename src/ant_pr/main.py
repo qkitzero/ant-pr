@@ -48,6 +48,7 @@ def main():
 
     output_lines.append(f"\n{COMMENT_MARKER}")
     comment = "\n".join(output_lines)
+    print(comment)
     post_or_update_comment(comment)
 
     if total_violations > 0:
