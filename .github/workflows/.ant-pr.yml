@@ -1,7 +1,5 @@
 limits:
   files: 15
   lines:
-    "frontend/": 100
-    "api/": 150
-    "docs/": 200
+    "src/": 100
     "": 100
