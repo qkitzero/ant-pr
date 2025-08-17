@@ -19,11 +19,11 @@ def main():
         if changed_files_count > changed_files_count_limit:
             total_violations += 1
             output_lines.append(
-                f"❌ Total changed files: {changed_files_count} (limit: {changed_files_count_limit})"
+                f"❌ Total changed files: `{changed_files_count}` (limit: `{changed_files_count_limit}`)"
             )
         else:
             output_lines.append(
-                f"✅ Total changed files: {changed_files_count} (within {changed_files_count_limit})"
+                f"✅ Total changed files: `{changed_files_count}` (within `{changed_files_count_limit}`)"
             )
 
     for line in changed_files:
@@ -37,15 +37,15 @@ def main():
             if total > limit:
                 total_violations += 1
                 output_lines.append(
-                    f"❌ `{file_path}` changed {total} lines (limit: {limit})"
+                    f"❌ `{file_path}` changed `{total}` lines (limit: `{limit}`)"
                 )
             else:
                 output_lines.append(
-                    f"✅ `{file_path}` changed {total} lines (within {limit})"
+                    f"✅ `{file_path}` changed `{total}` lines (within `{limit}`)"
                 )
         else:
             output_lines.append(
-                f"➖ `{file_path}` changed {total} lines (no limit set)"
+                f"➖ `{file_path}` changed `{total}` lines (no limit set)"
             )
 
     output_lines.append(f"\n{COMMENT_MARKER}")
