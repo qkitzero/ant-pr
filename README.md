@@ -31,6 +31,8 @@ name: Ant PR
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    branches-ignore:
+      - "main"
 
 permissions:
   pull-requests: write
