@@ -58,16 +58,19 @@ jobs:
 
 ```
 
-### 2. Configure Line Limits (Optional)
+### 2. Configure Limits
 
-Create a `.ant-pr.yml` file to define line change limits for different parts of your codebase.
+Create a `.ant-pr.yml` file in your repository to define limits for line changes and the total number of changed files.
+
+If this file is not present, the action will still run, but no limits will be enforced.
 
 ```yaml:.ant-pr.yml
-rules:
-  "frontend/": 100
-  "api/": 150
-  "docs/": 200
-  "": 50 # Default
+limits:
+  files: 15 # Limit the total number of changed files in a PR.
+  lines: # Define line change limits for different parts of your codebase.
+    "frontend/": 200
+    "backend/src/": 150
+    "docs/": 300
 ```
 
 That's it! Ant PR will now check new pull requests and add a comment if they exceed the defined limits.
