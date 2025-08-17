@@ -47,7 +47,7 @@ def main():
             )
 
     if total_violations == 0:
-        output_lines.insert(0, "## 🐜👍The Ants are Happy!! 🐜\n")
+        output_lines.insert(0, "## 🐜🎉The Ants are Happy!! 🐜\n")
     else:
         output_lines.insert(0, "## 🐜🔥The Ants are Angry!! 🐜\n")
 
