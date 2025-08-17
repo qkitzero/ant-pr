@@ -2,4 +2,3 @@ limits:
   files: 15
   lines:
     "src/": 100
-    "": 100
