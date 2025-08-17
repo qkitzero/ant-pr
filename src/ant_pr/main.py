@@ -9,8 +9,6 @@ def main():
     total_violations = 0
     output_lines = []
 
-    output_lines.append("# 🐜 Ant PR\n")
-
     changed_files = get_changed_files()
     changed_files_count = len(changed_files)
     changed_files_count_limit = get_file_limit()
@@ -47,6 +45,11 @@ def main():
             output_lines.append(
                 f"➖ `{file_path}` changed `{total}` lines (no limit set)"
             )
+
+    if total_violations == 0:
+        output_lines.insert(0, "## 🐜 All checks passed 🐜\n")
+    else:
+        output_lines.insert(0, "## 🐜 Checks failed 🐜\n")
 
     output_lines.append(f"\n{COMMENT_MARKER}")
     comment = "\n".join(output_lines)
