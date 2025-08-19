@@ -1,7 +1,8 @@
-import os
 import sys
 
 import requests
+
+from .inputs import get_pr_number, get_repo, get_token
 
 COMMENT_MARKER = "<!-- ant-pr-comment -->"
 
@@ -22,9 +23,9 @@ def find_existing_comment(repo, pr_number, token):
 
 
 def post_or_update_comment(comment):
-    token = os.environ["GITHUB_TOKEN"]
-    repo = os.environ["GITHUB_REPOSITORY"]
-    pr_number = os.environ["PULL_REQUEST_NUMBER"]
+    token = get_token()
+    repo = get_repo()
+    pr_number = get_pr_number()
 
     existing_comment_id = find_existing_comment(repo, pr_number, token)
 

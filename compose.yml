@@ -4,6 +4,8 @@ services:
     volumes:
       - ./.git:/app/.git
       - ./.github/workflows/.ant-pr.yml:/app/.ant-pr.yml
+      - ./event.json:/app/event.json
     environment:
-      BASE_SHA: ${BASE_SHA}
-      HEAD_SHA: ${HEAD_SHA}
+      GITHUB_EVENT_PATH: ${GITHUB_EVENT_PATH}
+      GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}

@@ -7,22 +7,10 @@ inputs:
   config-path:
     required: false
     default: ".ant-pr.yml"
-  base-sha:
-    required: true
-  head-sha:
-    required: true
   repo-token:
-    required: true
-  repository:
-    required: true
-  pull-request-number:
     required: true
 runs:
   using: "docker"
   image: "Dockerfile"
   env:
-    BASE_SHA: ${{ inputs.base-sha }}
-    HEAD_SHA: ${{ inputs.head-sha }}
-    GITHUB_TOKEN: ${{ inputs.repo-token }}
-    GITHUB_REPOSITORY: ${{ inputs.repository }}
-    PULL_REQUEST_NUMBER: ${{ inputs.pull-request-number }}
+    GITHUB_TOKEN: ${{ inputs.github-token }}
