@@ -1,10 +1,11 @@
-import os
 import subprocess
+
+from .inputs import get_base_sha, get_head_sha
 
 
 def get_changed_files():
-    base = os.environ["BASE_SHA"]
-    head = os.environ["HEAD_SHA"]
+    base = get_base_sha()
+    head = get_head_sha()
     subprocess.run(
         ["git", "config", "--global", "--add", "safe.directory", "/github/workspace"]
     )
