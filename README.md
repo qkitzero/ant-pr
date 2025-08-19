@@ -45,19 +45,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-
       - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.1.1
+        uses: qkitzero/ant-pr@v1.2.0
         with:
-          base-sha: ${{ github.event.pull_request.base.sha }}
-          head-sha: ${{ github.event.pull_request.head.sha }}
           config-path: ".github/workflows/.ant-pr.yml"
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          pull-request-number: ${{ github.event.pull_request.number }}
-
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### 2. Configure Limits
