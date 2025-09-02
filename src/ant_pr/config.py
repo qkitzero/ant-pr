@@ -29,13 +29,9 @@ def get_file_limit():
     return LIMITS.get("files", 0)
 
 
-def get_line_limits(path):
+def find_matching_path_prefix(path):
     match = ""
     for key in LINE_LIMITS:
         if path.startswith(key) and len(key) > len(match):
             match = key
-
-    if match:
-        return LINE_LIMITS[match]
-
-    return None
+    return match
