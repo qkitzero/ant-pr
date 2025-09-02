@@ -1,4 +1,4 @@
 limits:
-  files: 15
+  files: 10
   lines:
-    "src/": 100
+    "src/": 200
