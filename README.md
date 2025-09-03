@@ -48,7 +48,7 @@ jobs:
       - name: Run ant-pr
         uses: qkitzero/ant-pr@v1.3.0
         with:
-          config-path: ".github/workflows/.ant-pr.yml"
+          config-path: ".ant-pr.yml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
