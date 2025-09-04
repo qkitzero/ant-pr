@@ -39,7 +39,9 @@ def main():
 
         matching_prefix = find_matching_path_prefix(file_path)
 
-        if matching_prefix in LINE_LIMITS:
+        if matching_prefix == "" and "/" in file_path:
+            unlimited_files.append((file_path, total))
+        elif matching_prefix in LINE_LIMITS:
             line_changes_by_path[matching_prefix] += total
         else:
             unlimited_files.append((file_path, total))
