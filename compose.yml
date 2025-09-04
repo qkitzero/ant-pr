@@ -3,7 +3,7 @@ services:
     build: .
     volumes:
       - ./.git:/app/.git
-      - ./.github/workflows/.ant-pr.yml:/app/.ant-pr.yml
+      - .ant-pr.yml:/app/.ant-pr.yml
       - ./event.json:/app/event.json
     environment:
       GITHUB_EVENT_PATH: ${GITHUB_EVENT_PATH}

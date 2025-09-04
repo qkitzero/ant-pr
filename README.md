@@ -46,9 +46,9 @@ jobs:
           fetch-depth: 0
 
       - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.3.0
+        uses: qkitzero/ant-pr@v1.4.0
         with:
-          config-path: ".github/workflows/.ant-pr.yml"
+          config-path: ".ant-pr.yml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -62,6 +62,7 @@ If this file is not present, the action will still run, but no limits will be en
 limits:
   files: 15 # Limit the total number of changed files in a PR.
   lines: # Define line change limits for different parts of your codebase.
+    "": 100 # Root directory
     "frontend/": 200
     "backend/": 200
     "docs/": 300
