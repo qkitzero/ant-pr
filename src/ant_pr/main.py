@@ -44,17 +44,18 @@ def main():
         else:
             unlimited_files.append((file_path, total))
 
-    for path, total_changes in line_changes_by_path.items():
-        if total_changes > 0:
+    for path, total in line_changes_by_path.items():
+        if total > 0:
             limit = LINE_LIMITS[path]
-            if total_changes > limit:
+            display_path = path == "" if path else "root"
+            if total > limit:
                 total_violations += 1
                 output_lines.append(
-                    f"❌ `{path}` changed `{total_changes}` lines (limit: `{limit}`)"
+                    f"❌ `{display_path}` changed `{total}` lines (limit: `{limit}`)"
                 )
             else:
                 output_lines.append(
-                    f"✅ `{path}` changed `{total_changes}` lines (within `{limit}`)"
+                    f"✅ `{display_path}` changed `{total}` lines (within `{limit}`)"
                 )
 
     for file_path, total in unlimited_files:
