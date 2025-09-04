@@ -39,22 +39,26 @@ def main():
 
         matching_prefix = find_matching_path_prefix(file_path)
 
-        if matching_prefix:
+        if matching_prefix == "" and "/" in file_path:
+            unlimited_files.append((file_path, total))
+        elif matching_prefix in LINE_LIMITS:
             line_changes_by_path[matching_prefix] += total
         else:
             unlimited_files.append((file_path, total))
 
-    for path, total_changes in line_changes_by_path.items():
-        limit = LINE_LIMITS[path]
-        if total_changes > limit:
-            total_violations += 1
-            output_lines.append(
-                f"❌ `{path}` changed `{total_changes}` lines (limit: `{limit}`)"
-            )
-        else:
-            output_lines.append(
-                f"✅ `{path}` changed `{total_changes}` lines (within `{limit}`)"
-            )
+    for path, total in line_changes_by_path.items():
+        if total > 0:
+            limit = LINE_LIMITS[path]
+            display_path = path if path else "root"
+            if total > limit:
+                total_violations += 1
+                output_lines.append(
+                    f"❌ `{display_path}` changed `{total}` lines (limit: `{limit}`)"
+                )
+            else:
+                output_lines.append(
+                    f"✅ `{display_path}` changed `{total}` lines (within `{limit}`)"
+                )
 
     for file_path, total in unlimited_files:
         output_lines.append(f"➖ `{file_path}` changed `{total}` lines (no limit set)")
