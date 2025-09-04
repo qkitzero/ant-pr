@@ -47,7 +47,7 @@ def main():
     for path, total in line_changes_by_path.items():
         if total > 0:
             limit = LINE_LIMITS[path]
-            display_path = path == "" if "root" else path
+            display_path = path if path else "root"
             if total > limit:
                 total_violations += 1
                 output_lines.append(
