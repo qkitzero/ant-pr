@@ -23,10 +23,15 @@ def load_config():
 config = load_config()
 LIMITS = config.get("limits", {})
 LINE_LIMITS = LIMITS.get("lines", {})
+IGNORE = config.get("ignore", [])
 
 
 def get_file_limit():
     return LIMITS.get("files", 0)
+
+
+def get_ignore():
+    return IGNORE
 
 
 def find_matching_path_prefix(path):

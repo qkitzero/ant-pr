@@ -68,4 +68,14 @@ limits:
     "docs/": 300
 ```
 
+### 3. Ignoring Files
+
+You can also ignore files that you don't want to be checked by adding an `ignore` section to your `.ant-pr.yml` file. This is useful for ignoring auto-generated files like `package-lock.json`.
+
+```yaml:.ant-pr.yml
+ignore:
+  - "package-lock.json"
+  - "gen/*"
+```
+
 That's it! Ant PR will now check new pull requests and add a comment if they exceed the defined limits.
