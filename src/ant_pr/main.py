@@ -79,7 +79,7 @@ def main():
     if ignored_files:
         output_lines.append("\nIgnored files:")
         for file_path in ignored_files:
-            output_lines.append(f"➖ `{file_path}`")
+            output_lines.append(f"- `{file_path}`")
 
     if total_violations == 0:
         output_lines.insert(0, "## 🐜The Ants are Happy!!🎉\n")
