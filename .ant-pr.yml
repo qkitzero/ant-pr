@@ -3,3 +3,5 @@ limits:
   lines:
     "": 100
     "src/": 200
+ignore:
+  - "event.json"

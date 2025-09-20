@@ -46,7 +46,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.4.0
+        uses: qkitzero/ant-pr@v1.5.0
         with:
           config-path: ".ant-pr.yml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -66,6 +66,16 @@ limits:
     "frontend/": 200
     "backend/": 200
     "docs/": 300
+```
+
+### 3. Ignoring Files
+
+You can also ignore files that you don't want to be checked by adding an `ignore` section to your `.ant-pr.yml` file. This is useful for ignoring auto-generated files like `package-lock.json`.
+
+```yaml:.ant-pr.yml
+ignore:
+  - "package-lock.json"
+  - "gen/*"
 ```
 
 That's it! Ant PR will now check new pull requests and add a comment if they exceed the defined limits.

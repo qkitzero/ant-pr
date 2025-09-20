@@ -2,10 +2,10 @@
   "pull_request": {
     "number": 1,
     "base": {
-      "sha": "main"
+      "sha": "develop"
     },
     "head": {
-      "sha": "develop"
+      "sha": "feature/41"
     }
   }
 }
