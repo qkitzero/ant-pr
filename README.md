@@ -6,6 +6,8 @@
 
 Just like a colony of ants working together with small, consistent efforts to build something great, this action helps your team maintain a healthy and efficient development workflow.
 
+![ant-pr-comment-example.png](images/ant-pr-comment-example.png)
+
 ---
 
 ## ✨ Why Small Pull Requests?
