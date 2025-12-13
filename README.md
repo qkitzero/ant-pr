@@ -49,8 +49,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.5.0
+      - uses: qkitzero/ant-pr@v1.5.1
         with:
           config-path: ".ant-pr.yml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
