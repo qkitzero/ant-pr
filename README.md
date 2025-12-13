@@ -1,8 +1,12 @@
 # 🐜 Ant PR: "Small Pull Requests are Beautiful"
 
+[![release](https://img.shields.io/github/v/release/qkitzero/ant-pr?logo=github)](https://github.com/qkitzero/ant-pr/releases)
+
 **A GitHub Action that champions the philosophy of small, incremental changes by keeping your pull requests tiny and manageable.**
 
 Just like a colony of ants working together with small, consistent efforts to build something great, this action helps your team maintain a healthy and efficient development workflow.
+
+![ant-pr-comment-example.png](images/ant-pr-comment-example.png)
 
 ---
 
@@ -45,8 +49,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run ant-pr
-        uses: qkitzero/ant-pr@v1.5.0
+      - uses: qkitzero/ant-pr@v1.5.1
         with:
           config-path: ".ant-pr.yml"
           github-token: ${{ secrets.GITHUB_TOKEN }}
