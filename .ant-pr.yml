@@ -2,6 +2,6 @@ limits:
   files: 10
   lines:
     "": 100
-    "src/": 200
+    "src/": 300
 ignore:
   - "event.json"

@@ -1,12 +1,13 @@
 import os
 import sys
+from functools import lru_cache
 
 import yaml
 
 CONFIG_PATH = os.environ.get("INPUT_CONFIG-PATH", ".ant-pr.yml")
 
 
-def load_config():
+def load_config() -> dict:
     try:
         with open(CONFIG_PATH, "r") as f:
             config = yaml.safe_load(f)
@@ -20,23 +21,26 @@ def load_config():
         sys.exit(1)
 
 
-config = load_config()
-LIMITS = config.get("limits", {})
-LINE_LIMITS = LIMITS.get("lines", {})
-IGNORE = config.get("ignore", [])
+@lru_cache(maxsize=1)
+def _get_config() -> dict:
+    return load_config()
 
 
-def get_file_limit():
-    return LIMITS.get("files", 0)
+def get_line_limits() -> dict:
+    return _get_config().get("limits", {}).get("lines", {})
 
 
-def get_ignore():
-    return IGNORE
+def get_file_limit() -> int:
+    return _get_config().get("limits", {}).get("files", 0)
 
 
-def find_matching_path_prefix(path):
+def get_ignore() -> list[str]:
+    return _get_config().get("ignore", [])
+
+
+def find_matching_path_prefix(path: str) -> str:
     match = ""
-    for key in LINE_LIMITS:
+    for key in get_line_limits():
         if path.startswith(key) and len(key) > len(match):
             match = key
     return match
