@@ -2,16 +2,36 @@ import fnmatch
 import sys
 
 from .config import (
-    LINE_LIMITS,
     find_matching_path_prefix,
     get_file_limit,
     get_ignore,
+    get_line_limits,
 )
 from .git import get_changed_files
 from .github import COMMENT_MARKER, post_or_update_comment
 
+BINARY_FILE_MARKER = "-"
+HEADER_HAPPY = "## 🐜The Ants are Happy!!🎉\n"
+HEADER_ANGRY = "## 🐜The Ants are Angry!!🔥\n"
 
-def main():
+
+def parse_numstat_line(line: str) -> tuple[str, int, int]:
+    added_str, deleted_str, file_path = line.strip().split("\t")
+    added = int(added_str) if added_str != BINARY_FILE_MARKER else 0
+    deleted = int(deleted_str) if deleted_str != BINARY_FILE_MARKER else 0
+    return file_path, added, deleted
+
+
+def format_limit_check(
+    label: str, value: int, limit: int, unit: str = "lines"
+) -> tuple[str, bool]:
+    unit_str = f" {unit}" if unit else ""
+    if value > limit:
+        return f"❌ {label} `{value}`{unit_str} (limit: `{limit}`)", True
+    return f"✅ {label} `{value}`{unit_str} (within `{limit}`)", False
+
+
+def main() -> None:
     total_violations = 0
     output_lines = []
 
@@ -21,7 +41,7 @@ def main():
 
     filtered_changed_files = []
     for line in changed_files:
-        _, _, file_path = line.strip().split("\t")
+        file_path, _, _ = parse_numstat_line(line)
         if any(fnmatch.fnmatch(file_path, pattern) for pattern in ignore_patterns):
             ignored_files.append(file_path)
         else:
@@ -31,47 +51,42 @@ def main():
     changed_files_count_limit = get_file_limit()
 
     if changed_files_count_limit:
-        if changed_files_count > changed_files_count_limit:
+        line, violated = format_limit_check(
+            "Total changed files:",
+            changed_files_count,
+            changed_files_count_limit,
+            unit="",
+        )
+        output_lines.append(line)
+        if violated:
             total_violations += 1
-            output_lines.append(
-                f"❌ Total changed files: `{changed_files_count}` (limit: `{changed_files_count_limit}`)"
-            )
-        else:
-            output_lines.append(
-                f"✅ Total changed files: `{changed_files_count}` (within `{changed_files_count_limit}`)"
-            )
 
-    line_changes_by_path = {path: 0 for path in LINE_LIMITS}
+    line_limits = get_line_limits()
+    line_changes_by_path = {path: 0 for path in line_limits}
     unlimited_files = []
 
     for line in filtered_changed_files:
-        added, deleted, file_path = line.strip().split("\t")
-        added = int(added) if added != "-" else 0
-        deleted = int(deleted) if deleted != "-" else 0
+        file_path, added, deleted = parse_numstat_line(line)
         total = added + deleted
 
         matching_prefix = find_matching_path_prefix(file_path)
 
-        if matching_prefix == "" and "/" in file_path:
+        is_root_only_match = matching_prefix == "" and "/" in file_path
+        if is_root_only_match or matching_prefix not in line_limits:
             unlimited_files.append((file_path, total))
-        elif matching_prefix in LINE_LIMITS:
-            line_changes_by_path[matching_prefix] += total
         else:
-            unlimited_files.append((file_path, total))
+            line_changes_by_path[matching_prefix] += total
 
     for path, total in line_changes_by_path.items():
         if total > 0:
-            limit = LINE_LIMITS[path]
+            limit = line_limits[path]
             display_path = path if path else "root"
-            if total > limit:
+            line, violated = format_limit_check(
+                f"`{display_path}` changed", total, limit
+            )
+            output_lines.append(line)
+            if violated:
                 total_violations += 1
-                output_lines.append(
-                    f"❌ `{display_path}` changed `{total}` lines (limit: `{limit}`)"
-                )
-            else:
-                output_lines.append(
-                    f"✅ `{display_path}` changed `{total}` lines (within `{limit}`)"
-                )
 
     for file_path, total in unlimited_files:
         output_lines.append(f"➖ `{file_path}` changed `{total}` lines (no limit set)")
@@ -82,9 +97,9 @@ def main():
             output_lines.append(f"➖ `{file_path}`")
 
     if total_violations == 0:
-        output_lines.insert(0, "## 🐜The Ants are Happy!!🎉\n")
+        output_lines.insert(0, HEADER_HAPPY)
     else:
-        output_lines.insert(0, "## 🐜The Ants are Angry!!🔥\n")
+        output_lines.insert(0, HEADER_ANGRY)
 
     output_lines.append(f"\n{COMMENT_MARKER}")
     comment = "\n".join(output_lines)
